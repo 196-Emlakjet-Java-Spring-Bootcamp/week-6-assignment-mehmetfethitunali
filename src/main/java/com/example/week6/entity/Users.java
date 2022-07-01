@@ -24,6 +24,9 @@ public class Users {
     private String userSurname;
 
     @Column
+    private String password;
+
+    @Column
     private String userMail;
 
     @OneToMany(mappedBy = "users", cascade = CascadeType.ALL)

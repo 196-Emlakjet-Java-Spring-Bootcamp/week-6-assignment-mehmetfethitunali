@@ -13,6 +13,8 @@ public class UserDto {
 
     private String userSurname;
 
+    private String password;
+
     private String userMail;
 
 }

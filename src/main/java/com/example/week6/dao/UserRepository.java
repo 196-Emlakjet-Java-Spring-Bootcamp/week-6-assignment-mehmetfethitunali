@@ -7,4 +7,6 @@ public interface UserRepository extends JpaRepository<Users, Long> {
 
     @Query(value = "select * from users order by random() limit 1", nativeQuery = true)
     Users getRandomUser();
+
+    Users findUsersByUserName(String username);
 }
