@@ -1,8 +1,11 @@
 package com.example.week6.rabbit.consumer;
 import com.example.week6.dao.AdvertisementRepository;
+import com.example.week6.dao.NotificationRepository;
 import com.example.week6.dao.UserRepository;
 import com.example.week6.entity.Advertisement;
+import com.example.week6.entity.Notification;
 import com.example.week6.entity.Users;
+import com.example.week6.service.NotificationServiceImp;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,10 @@ public class AdvertisementConsumer {
     @Autowired
     AdvertisementRepository advertisementRepository;
 
+    @Autowired
+    NotificationRepository notificationRepository;
+
+
     @RabbitListener(queues = "queue2-queue")
     public void handleOperation (Advertisement advertisement) throws InterruptedException {
 
@@ -34,6 +41,9 @@ public class AdvertisementConsumer {
         advertisement.setCreatedAt(new Date());
 
         advertisementRepository.save(advertisement);
+
+        NotificationServiceImp notificationServiceImp = new NotificationServiceImp();
+        notificationServiceImp.createNotification(advertisement);
 
     }
 }
